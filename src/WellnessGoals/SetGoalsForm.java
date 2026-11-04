@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package WellnessGoals;
+import java.util.ArrayList;
 
 /**
  *
  * @author kevinalabi
  */
 public class SetGoalsForm extends javax.swing.JFrame {
+    private ArrayList<Goal> goals = new ArrayList<>();
+
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SetGoalsForm.class.getName());
 
@@ -56,6 +59,11 @@ public class SetGoalsForm extends javax.swing.JFrame {
         });
 
         jButton2.setText("Back to wellness Goals");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,29 +130,51 @@ public class SetGoalsForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveGoalActionPerformed
-        // TODO add your handling code here:
-        String goalName = txtGoalName.getText().trim();
-        String dailyTarget = txtDailyTarget.getText().trim();
-        String deadline = txtDeadline.getText().trim();
+        // TODO add your handling code here:private void btnSaveGoalActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    String goalName = txtGoalName.getText().trim();
+    String dailyTarget = txtDailyTarget.getText().trim();
+    String deadline = txtDeadline.getText().trim();
 
-// Check  if fields are empty
-if (goalName.isEmpty() || dailyTarget.isEmpty() || deadline.isEmpty()) {
+    // Check if fields are empty
+    if (goalName.isEmpty() || dailyTarget.isEmpty() || deadline.isEmpty()) {
 
-    javax.swing.JOptionPane.showMessageDialog(this,
-        "Please fill in all fields.",
-        "Missing Information",
-        javax.swing.JOptionPane.WARNING_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this,
+            "Please fill in all fields.",
+            "Missing Information",
+            javax.swing.JOptionPane.WARNING_MESSAGE);
 
-} else {
+    } else {
 
-    javax.swing.JOptionPane.showMessageDialog(this,
-        "Goal saved successfully!",
-        "Success",
-        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        // Create a new Goal object
+        Goal newGoal = new Goal(goalName, dailyTarget, deadline);
 
+        // Add the goal to the ArrayList
+        goals.add(newGoal);
+
+        javax.swing.JOptionPane.showMessageDialog(this,
+            "Goal saved successfully!",
+            "Success",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        // Clear the fields
+        txtGoalName.setText("");
+        txtDailyTarget.setText("");
+        txtDeadline.setText("");
+
+    
 }
+     
+
         
     }//GEN-LAST:event_btnSaveGoalActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        wellnessgoalsmenu menu = new wellnessgoalsmenu();
+        menu.setVisible(true);
+
+    this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
