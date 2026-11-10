@@ -118,7 +118,8 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHealthTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHealthTrackingActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, "Health Tracking section coming soon.");
+        new healthTracking.HealthTrackingMenu().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnHealthTrackingActionPerformed
 
     private void btnMedicationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicationActionPerformed
