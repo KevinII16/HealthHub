@@ -11,13 +11,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SetGoalsForm extends javax.swing.JFrame {
     private ArrayList<Goal> goals = new ArrayList<>();
+    private ArrayList<Goal> displayedGoals = new ArrayList<>();
     private void updateGoalsTable() {
     DefaultTableModel model =
         (DefaultTableModel) jTable1.getModel();
-
     model.setRowCount(0);
-
+    displayedGoals.clear();
     for (Goal goal : goals) {
+        displayedGoals.add(goal);
         model.addRow(new Object[]{
             goal.getGoalName(),
             goal.getDailyTarget(),
@@ -26,7 +27,6 @@ public class SetGoalsForm extends javax.swing.JFrame {
         });
     }
 }
-
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SetGoalsForm.class.getName());
 
@@ -35,6 +35,7 @@ public class SetGoalsForm extends javax.swing.JFrame {
      */
     public SetGoalsForm() {
         initComponents();
+        updateGoalsTable();
     }
 
     /**
@@ -56,11 +57,14 @@ public class SetGoalsForm extends javax.swing.JFrame {
         txtDailyTarget = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDeadline = new javax.swing.JTextField();
+        btnSearchGoal = new javax.swing.JButton();
+        txtSearchGoal = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        btnShowAll = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,22 +93,32 @@ public class SetGoalsForm extends javax.swing.JFrame {
 
         jLabel4.setText("Deadline");
 
+        btnSearchGoal.setText("Search");
+        btnSearchGoal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchGoalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSearchGoal)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel2)))
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtGoalName)
-                    .addComponent(txtDeadline, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                    .addComponent(txtDailyTarget))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addComponent(txtDeadline)
+                    .addComponent(txtDailyTarget)
+                    .addComponent(txtSearchGoal, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +135,10 @@ public class SetGoalsForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtDeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearchGoal)
+                    .addComponent(txtSearchGoal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -148,19 +166,29 @@ public class SetGoalsForm extends javax.swing.JFrame {
             }
         });
 
+        btnShowAll.setText("Show All");
+        btnShowAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowAllActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jButton1)
-                .addGap(41, 173, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jButton1)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnShowAll)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,11 +198,18 @@ public class SetGoalsForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnShowAll))
                 .addGap(18, 18, 18))
         );
 
         jButton3.setText("Clear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,11 +223,11 @@ public class SetGoalsForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(btnSaveGoal, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(jButton3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -218,7 +253,7 @@ public class SetGoalsForm extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(btnSaveGoal)
                     .addComponent(jButton3))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         pack();
@@ -274,7 +309,57 @@ public class SetGoalsForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this,"Please select a goal to delete.");
+    return;
+}
+
+        int modelRow = jTable1.convertRowIndexToModel(selectedRow);
+        Goal selectedGoal = displayedGoals.get(modelRow);   
+        goals.remove(selectedGoal);
+        updateGoalsTable();
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        txtGoalName.setText("");
+        txtDailyTarget.setText("");
+        txtDeadline.setText("");
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnSearchGoalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchGoalActionPerformed
+        // TODO add your handling code here:private void btnSearchGoalActionPerformed(java.awt.event.ActionEvent evt) {
+    String searchText = txtSearchGoal.getText().trim().toLowerCase();
+    DefaultTableModel model =
+        (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+    displayedGoals.clear();
+    for (Goal goal : goals) {
+        if (goal.getGoalName().toLowerCase().contains(searchText)) {
+            displayedGoals.add(goal);
+            model.addRow(new Object[]{
+                goal.getGoalName(),
+                goal.getDailyTarget(),
+                goal.getDeadline(),
+                "In Progress"
+            });
+        }
+}
+
+       
+    
+
+    }//GEN-LAST:event_btnSearchGoalActionPerformed
+
+    private void btnShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowAllActionPerformed
+        // TODO add your handling code here:
+        updateGoalsTable();
+        txtSearchGoal.setText("");
+
+    }//GEN-LAST:event_btnShowAllActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +388,8 @@ public class SetGoalsForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSaveGoal;
+    private javax.swing.JButton btnSearchGoal;
+    private javax.swing.JButton btnShowAll;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -318,5 +405,6 @@ public class SetGoalsForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtDailyTarget;
     private javax.swing.JTextField txtDeadline;
     private javax.swing.JTextField txtGoalName;
+    private javax.swing.JTextField txtSearchGoal;
     // End of variables declaration//GEN-END:variables
 }
