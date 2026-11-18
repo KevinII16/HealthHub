@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package WellnessGoals;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author kevinalabi
  */
 public class LogHabitsForm extends javax.swing.JFrame {
+    private ArrayList<Habit> habits = new ArrayList<>();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LogHabitsForm.class.getName());
 
@@ -152,6 +155,33 @@ public class LogHabitsForm extends javax.swing.JFrame {
 
     private void btnSaveHabitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveHabitActionPerformed
         // TODO add your handling code here:
+        
+        String habitName = txtHabitName.getText().trim();
+        String date = txtDate.getText().trim();
+        String duration = txtDuration.getText().trim();
+        String notes = txtNotes.getText().trim();
+
+        // Check that the required fields are filled i
+        if (habitName.isEmpty() || date.isEmpty() || duration.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Please fill in the habit name, date and duration.");
+            return;
+        }
+
+        // Create a new Habit object
+        Habit newHabit = new Habit(habitName, date, duration, notes);
+
+        // Add the habit to the ArrayList
+        habits.add(newHabit);
+
+        JOptionPane.showMessageDialog(this,
+                "Habit saved successfully!");
+
+        // Clear the input fields
+        txtHabitName.setText("");
+        txtDate.setText("");
+        txtDuration.setText("");
+        txtNotes.setText("");
+
     }//GEN-LAST:event_btnSaveHabitActionPerformed
 
     private void txtNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNotesActionPerformed
